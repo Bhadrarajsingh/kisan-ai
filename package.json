@@ -1,0 +1,30 @@
+{
+  "name": "kisan-ai-root",
+  "version": "1.0.0",
+  "description": "KisanAI - Hyperlocal Agricultural & Weather Intelligence for Smarter Farming",
+  "private": true,
+  "scripts": {
+    "install:all": "npm --prefix server install && npm --prefix client install",
+    "install:server": "npm --prefix server install",
+    "install:client": "npm --prefix client install",
+    "server": "npm --prefix server run dev",
+    "client": "npm --prefix client run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "npm --prefix client run build",
+    "start": "node server/server.js"
+  },
+  "keywords": [
+    "monsoon",
+    "agriculture",
+    "ai",
+    "gemini",
+    "hyperlocal",
+    "weather",
+    "sih"
+  ],
+  "author": "KisanAI Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
