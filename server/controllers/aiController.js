@@ -1,6 +1,7 @@
 import { askKisanAI } from '../services/geminiService.js';
 import { getForecastData, getClimateIndices, getLiveWeather } from '../services/demoDataService.js';
 import { MANDI_PRICES_DATABASE, BUYERS_STORE, PRODUCTS_STORE } from '../services/marketplaceService.js';
+import { diagnoseCropFromImage } from '../services/visionDiagnosisService.js';
 
 export const handleAIChat = async (req, res, next) => {
   try {
@@ -66,6 +67,28 @@ export const handleAIChat = async (req, res, next) => {
       data: result
     });
   } catch (error) {
+    next(error);
+  }
+};
+
+export const handleCropDiagnosis = async (req, res, next) => {
+  try {
+    const { imageBase64, filename, visualFeatures, userCropHint, lang } = req.body;
+
+    const result = await diagnoseCropFromImage({
+      imageBase64,
+      filename,
+      visualFeatures,
+      userCropHint,
+      lang: lang || 'en'
+    });
+
+    res.json({
+      success: true,
+      data: result
+    });
+  } catch (error) {
+    console.error('Error diagnosing crop:', error);
     next(error);
   }
 };
